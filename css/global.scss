@@ -1,0 +1,111 @@
+// 사용하는 폰트
+$font1 : "NotoSansKR"; // 기본폰트
+
+
+// 컬러셋
+$main_col : #a051dc;
+$sub_col1 : #dcd8ee;
+$sub_col2 : #dcd8ee;
+
+// 텍스트
+$text_col1 : #121517;
+
+$gray10 : #f8f9fa;
+$gray20 : #f1f3f5;
+$gray30 : #e9ecef;
+$gray40 : #dee2e6;
+$gray50 : #ced4da;
+$gray60 : #adb5bd;
+$gray70 : #8f959c;
+$gray80 : #6d747a;
+$gray90 : #495057;
+$gray100 : #121517;
+
+
+$btn_main_col : #26c2cc;
+$btn_negative_col : #8d8e98;
+
+
+
+
+// 펑션
+@mixin pseudo($display: block, $pos: absolute, $content: '') {
+	content: $content;
+	display: $display;
+	position: $pos;
+}
+
+@mixin lsPx($letterSpacing, $fontSize) {
+	letter-spacing: #{($letterSpacing * $fontSize) / 1000}px;
+}
+
+@mixin lsRem($letterSpacing, $fontSize) {
+	letter-spacing: #{($letterSpacing * $fontSize) / 10000}rem;
+
+}
+
+@mixin text-middle($vertical-align : middle) {
+	display: inline-block;
+	vertical-align: $vertical-align;
+}
+
+@mixin text_ellipsis {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-wrap: normal;
+	width: 100%;
+	max-width:100%;
+	overflow: hidden;
+}
+
+@mixin text_ellipsis_multi($line,$lh,$h) {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: $line; /* 라인수 */
+	-webkit-box-orient: vertical;
+	word-wrap: break-word;
+	line-height: #{$lh}px;
+	height: #{$h}px; /* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
+	max-width: 100%;
+}
+
+@mixin icon($name , $w , $h) {
+	$url: "../img/#{$name}.png";
+	background: url($url) no-repeat center / cover;
+	width: #{$w}px;
+	height: #{$h}px;
+	@content
+}
+
+@mixin appear {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	appearance: none;
+}
+
+// 반응형 (3배)
+@function divide($value , $divide : 3) {
+	@return (#{($value/$divide)}px);
+}
+
+// 반응형 (3배)
+@function divideNum($value , $divide : 3) {
+	@return ($value/$divide);
+}
+
+
+
+@function str-replace($source, $substring, $replacement, $fail-silently: false) {
+
+	$start: str-index($source, $substring);
+	@if $start {
+		@return str-slice($source, 1, $start - 1)  + $replacement + str-slice($source, $start + str-length($substring))
+	}
+	@if $fail-silently {
+		@return $source;
+	} @else {
+		@error "'#{$substring}' was not found in '#{$source}'";
+	}
+}
